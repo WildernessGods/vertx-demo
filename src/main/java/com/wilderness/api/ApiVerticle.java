@@ -22,7 +22,8 @@ public class ApiVerticle extends AbstractVerticle {
         Router router = Router.router(vertx);
         router.route().handler(BodyHandler.create());
 
-        router.get("/*").handler(this::log); // 全局日志处理，会执行 next() 到下一个
+        // 全局日志处理，会执行 next() 到下一个
+        router.get("/*").handler(this::log);
         router.get("/users/:userId").handler(this::handleGetUser);
         router.post("/users").handler(this::handleAddUser);
         router.get("/users").handler(this::handleListUsers);
@@ -40,14 +41,8 @@ public class ApiVerticle extends AbstractVerticle {
     }
 
     private void log(RoutingContext routingContext) {
-        vertx.eventBus().<JsonObject>request(Key.SET_HISTORY_TO_JDBC, null, res -> {
-            if (res.failed()) {
-                routingContext.fail(res.cause());
-            } else {
-                routingContext.next();
-            }
-        });
-
+        vertx.eventBus().publish(Key.SET_HISTORY_TO_JDBC, null);
+        routingContext.next();
     }
 
     private void handleGetUser(RoutingContext routingContext) {
