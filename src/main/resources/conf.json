@@ -1,0 +1,14 @@
+{
+  "http.port": 8080,
+  "jdbc": {
+    "url": "jdbc:mysql://localhost:3306/local_test?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&autoReconnectForPools=true&useSSL=true&createDatabaseIfNotExist=true&serverTimezone=UTC",
+    "driver_class": "com.mysql.cj.jdbc.Driver",
+    "user": "root",
+    "password": "root"
+  },
+  "redis": {
+    "host": "127.0.0.1",
+    "port": 6379,
+    "select": 0
+  }
+}
