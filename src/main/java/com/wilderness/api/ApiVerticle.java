@@ -42,6 +42,7 @@ public class ApiVerticle extends AbstractVerticle {
 
     private void log(RoutingContext routingContext) {
         vertx.eventBus().publish(Key.SET_HISTORY_TO_JDBC, null);
+        vertx.eventBus().publish(Key.SET_HISTORY_TO_REDIS, null);
         routingContext.next();
     }
 
