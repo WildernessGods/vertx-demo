@@ -20,6 +20,7 @@ public class JdbcVerticle extends AbstractVerticle {
     @Override
     public void start(Promise<Void> startFuture) {
 
+        JsonObject config = config();
         vertx.eventBus().consumer(Key.GET_IOTMACHINE_FROM_JDBC, this::getIotMachineFromJdbc);
         vertx.eventBus().consumer(Key.SET_HISTORY_TO_JDBC, this::setHistoryToJdbc);
 
@@ -46,6 +47,7 @@ public class JdbcVerticle extends AbstractVerticle {
     }
 
     private void getIotMachineFromJdbc(Message<JsonObject> message) {
+        log.debug("getIotMachineFromJdbc:" + System.currentTimeMillis());
         String userId = message.body().getString("userId");
         connection.query("select * from users where id = " + userId, query -> {
             if (query.failed()) {
@@ -62,6 +64,7 @@ public class JdbcVerticle extends AbstractVerticle {
     }
 
     private void setHistoryToJdbc(Message<JsonObject> message) {
+        log.debug("setHistoryToJdbc:" + System.currentTimeMillis());
         connection.query("select * from logs where data = '" + LocalDate.now() + "';", query -> {
             if (query.failed()) {
                 message.fail(500, query.cause().getMessage());

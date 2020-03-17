@@ -1,4 +1,4 @@
-package com.wilderness.api;
+package com.wilderness.io;
 
 import com.wilderness.constants.Key;
 import io.vertx.core.AbstractVerticle;
@@ -47,6 +47,7 @@ public class ApiVerticle extends AbstractVerticle {
     }
 
     private void handleGetUser(RoutingContext routingContext) {
+        log.debug("handleGetUser:" + System.currentTimeMillis());
         String userId = routingContext.request().getParam("userId");
         HttpServerResponse response = routingContext.response();
         JsonObject result = new JsonObject();

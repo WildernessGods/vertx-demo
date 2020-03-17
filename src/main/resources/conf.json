@@ -1,5 +1,6 @@
 {
-  "http.port": 8080,
+  "http.port": 8081,
+  "iot.port": 9000,
   "jdbc": {
     "url": "jdbc:mysql://localhost:3306/local_test?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&autoReconnectForPools=true&useSSL=true&createDatabaseIfNotExist=true&serverTimezone=UTC",
     "driver_class": "com.mysql.cj.jdbc.Driver",
