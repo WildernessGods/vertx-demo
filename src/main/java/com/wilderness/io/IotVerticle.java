@@ -17,22 +17,16 @@ public class IotVerticle extends AbstractVerticle {
         MqttServer mqttServer = MqttServer.create(vertx);
         mqttServer.endpointHandler(endpoint -> {
 
-            // shows main connect info
-            log.debug("MQTT client [" + endpoint.clientIdentifier() + "] request to connect, clean session = " + endpoint.isCleanSession());
+            log.debug("connected client " + endpoint.clientIdentifier());
 
-            if (endpoint.auth() != null) {
-                log.debug("[username = " + endpoint.auth().getUsername() + ", password = " + endpoint.auth().getPassword() + "]");
-            }
-            if (endpoint.will() != null) {
-                log.debug("[will topic = " + endpoint.will().getWillTopic() + " msg = " + new String(endpoint.will().getWillMessageBytes()) +
-                        " QoS = " + endpoint.will().getWillQos() + " isRetain = " + endpoint.will().isWillRetain() + "]");
-            }
+            endpoint.publishHandler(message -> {
 
-            log.debug("[keep alive timeout = " + endpoint.keepAliveTimeSeconds() + "]");
+                log.debug("Just received message on [" + message.topicName() + "] payload [" +
+                        message.payload() + "] with QoS [" +
+                        message.qosLevel() + "]");
+            });
 
-            // accept connection from the remote client
             endpoint.accept(false);
-
         }).listen(config().getInteger("iot.port", 9000), ar -> {
             if (ar.succeeded()) {
                 log.debug("MQTT server start succeeded");

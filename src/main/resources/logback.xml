@@ -11,7 +11,7 @@
     </appender>
 
     <logger name="com.wilderness" level="DEBUG"/>
-    <logger name="com.hazelcast" level="INFO"/>
+<!--    <logger name="com.hazelcast" level="INFO"/>-->
 
     <root level="ERROR">
         <appender-ref ref="CONSOLE"/>
