@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author an_qiang
  */
 @Slf4j
-public class IotVerticle extends AbstractVerticle {
+public class IotServerVerticle extends AbstractVerticle {
 
     @Override
     public void start(Promise<Void> startFuture) {
@@ -20,13 +20,12 @@ public class IotVerticle extends AbstractVerticle {
             log.debug("connected client " + endpoint.clientIdentifier());
 
             endpoint.publishHandler(message -> {
-
                 log.debug("Just received message on [" + message.topicName() + "] payload [" +
                         message.payload() + "] with QoS [" +
                         message.qosLevel() + "]");
             });
 
-            endpoint.accept(false);
+            endpoint.accept(true);
         }).listen(config().getInteger("iot.port", 9000), ar -> {
             if (ar.succeeded()) {
                 log.debug("MQTT server start succeeded");

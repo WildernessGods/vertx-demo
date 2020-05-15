@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration debug="false">
-    <!--标准输出日志-->
-    <statusListener class="ch.qos.logback.core.status.NopStatusListener"/>
+<configuration scan="true">
     <!--控制台输出-->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-        <withJansi>true</withJansi>
+        <withJansi>false</withJansi>
         <encoder charset="UTF-8">
             <pattern>%highlight([%5p]) %magenta([%d{HH:mm:ss.SSS}]) %blue([%16t]) %magenta([%c]) %n%msg%n%n</pattern>
         </encoder>
     </appender>
 
     <logger name="com.wilderness" level="DEBUG"/>
-<!--    <logger name="com.hazelcast" level="INFO"/>-->
+    <logger name="io.vertx" level="WARN"/>
 
     <root level="ERROR">
         <appender-ref ref="CONSOLE"/>
